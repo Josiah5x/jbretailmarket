@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout | MiniStore{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+<!-- HEADER -->
+
+<div class="mb-5">
+
+    <span class="text-primary fw-semibold">
+        CHECKOUT
+    </span>
+
+    <h1 class="fw-bold">
+        Complete Your Order
+    </h1>
+
+    <p class="text-muted">
+        Enter your delivery information and choose a payment method.
+    </p>
+
+</div>
+
+
+<form method="post">
+
+    {% csrf_token %}
+
+    <div class="row g-4">
+
+        <!-- CUSTOMER INFORMATION -->
+
+        <div class="col-lg-7">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-4">
+
+                    <h4 class="fw-bold mb-4">
+                        Delivery Information
+                    </h4>
+
+
+                    <!-- FULL NAME -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+                            Full Name
+                        </label>
+
+                        {{ form.full_name }}
+
+                        {% if form.full_name.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ form.full_name.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- EMAIL / PHONE -->
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label fw-semibold">
+                                Email
+                            </label>
+
+                            {{ form.email }}
+
+                        </div>
+
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label fw-semibold">
+                                Phone
+                            </label>
+
+                            {{ form.phone }}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+                            Delivery Address
+                        </label>
+
+                        {{ form.address }}
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <div class="row">
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label fw-semibold">
+                                City
+                            </label>
+
+                            {{ form.city }}
+
+                        </div>
+
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label fw-semibold">
+                                State
+                            </label>
+
+                            {{ form.state }}
+
+                        </div>
+
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label fw-semibold">
+                                LGA
+                            </label>
+
+                            {{ form.lga }}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PAYMENT -->
+
+                    <h4 class="fw-bold mt-4 mb-3">
+                        Payment Method
+                    </h4>
+
+                    {% for choice in form.payment_method %}
+
+                        <div class="form-check border rounded p-3 mb-2">
+
+                            {{ choice.tag }}
+
+                            <label
+                                class="form-check-label ms-2"
+                                for="{{ choice.id_for_label }}"
+                            >
+                                {{ choice.choice_label }}
+                            </label>
+
+                        </div>
+
+                    {% endfor %}
+
+
+                    <!-- NOTES -->
+
+                    <div class="mt-4">
+
+                        <label class="form-label fw-semibold">
+                            Order Notes
+                        </label>
+
+                        {{ form.notes }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ORDER SUMMARY -->
+
+        <div class="col-lg-5">
+
+            <div
+                class="card border-0 shadow-sm"
+                style="position: sticky; top: 90px;"
+            >
+
+                <div class="card-body p-4">
+
+                    <h4 class="fw-bold mb-4">
+                        Your Order
+                    </h4>
+
+
+                    {% for item in cart_items %}
+
+                        <div class="d-flex gap-3 mb-3">
+
+                            {% if item.product.image %}
+
+                                <img
+                                    src="{{ item.product.image.url }}"
+                                    alt="{{ item.product.name }}"
+                                    width="65"
+                                    height="65"
+                                    class="rounded object-fit-cover"
+                                >
+
+                            {% else %}
+
+                                <div
+                                    class="bg-light rounded d-flex align-items-center justify-content-center"
+                                    style="width:65px;height:65px;"
+                                >
+                                    <i class="bi bi-image"></i>
+                                </div>
+
+                            {% endif %}
+
+
+                            <div class="flex-grow-1">
+
+                                <div class="fw-semibold">
+                                    {{ item.product.name }}
+                                </div>
+
+                                <small class="text-muted">
+                                    Qty: {{ item.quantity }}
+                                </small>
+
+                            </div>
+
+
+                            <strong>
+                                ₦{{ item.line_total|floatformat:2 }}
+                            </strong>
+
+                        </div>
+
+                    {% endfor %}
+
+
+                    <hr>
+
+
+                    <!-- SUBTOTAL -->
+
+                    <div class="d-flex justify-content-between mb-2">
+
+                        <span class="text-muted">
+                            Subtotal
+                        </span>
+
+                        <span>
+                            ₦{{ cart.subtotal|floatformat:2 }}
+                        </span>
+
+                    </div>
+
+
+                    <!-- DELIVERY -->
+
+                    <div class="d-flex justify-content-between mb-2">
+
+                        <span class="text-muted">
+                            Delivery
+                        </span>
+
+                        <span>
+                            ₦1,500.00
+                        </span>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <!-- TOTAL -->
+
+                    <div class="d-flex justify-content-between mb-4">
+
+                        <strong class="fs-5">
+                            Total
+                        </strong>
+
+                        <strong class="fs-4">
+                            ₦{{ cart.subtotal|add:"1500"|floatformat:2 }}
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-dark btn-lg w-100"
+                    >
+                        <i class="bi bi-lock me-2"></i>
+                        Place Order
+                    </button>
+
+
+                    <div class="text-center mt-3">
+
+                        <small class="text-muted">
+
+                            <i class="bi bi-shield-check me-1"></i>
+
+                            Your order information is secure.
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+
+</div>
+
+{% endblock %}
