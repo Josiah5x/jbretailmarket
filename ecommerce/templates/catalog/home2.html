@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}
+    MiniStore | Home
+{% endblock %}
+
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-6">
+
+                <span class="badge bg-dark mb-3">
+                    Welcome to MiniStore
+                </span>
+
+                <h1 class="display-4 fw-bold">
+                    Everything you need,
+                    all in one place.
+                </h1>
+
+                <p class="lead text-muted mt-3">
+
+                    Discover quality products
+                    at great prices.
+
+                </p>
+
+                <div class="mt-4">
+
+                    <a
+                        href="/shop/"
+                        class="btn btn-dark btn-lg px-4">
+
+                        Shop Now
+
+                        <i class="bi bi-arrow-right ms-2"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6 mt-5 mt-lg-0">
+
+                <div
+                    class="bg-dark rounded-4 p-5 text-white text-center">
+
+                    <i
+                        class="bi bi-bag-heart display-1">
+                    </i>
+
+                    <h3 class="mt-4">
+                        Start Shopping
+                    </h3>
+
+                    <p class="text-white-50">
+                        Your online store starts here.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
