@@ -1,0 +1,9 @@
+python3 manage.py startapp accounts apps/accounts
+python3 manage.py startapp catalog apps/catalog
+python3 manage.py startapp cart apps/cart
+python3 manage.py startapp checkout apps/checkout
+python3 manage.py startapp orders apps/orders
+python3 manage.py startapp payments apps/payments
+python3 manage.py startapp inventory apps/inventory
+python3 manage.py startapp reviews apps/reviews
+python3 manage.py startapp core apps/core

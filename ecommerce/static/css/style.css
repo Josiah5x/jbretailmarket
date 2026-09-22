@@ -1,0 +1,447 @@
+body {
+    min-height: 100vh;
+}
+
+.navbar-brand {
+    letter-spacing: -0.5px;
+}
+
+.product-card {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.btn {
+    border-radius: 8px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+}
+
+/* ############# CATALOG */
+
+.product-card {
+    overflow: hidden;
+    border-radius: 12px;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.12) !important;
+}
+
+.product-image-wrapper {
+    height: 260px;
+    overflow: hidden;
+    position: relative;
+    background: #f5f5f5;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.08);
+}
+
+.product-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: #adb5bd;
+}
+
+.sale-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 5;
+    border-radius: 6px;
+}
+
+.quick-view-btn {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translate(-50%, 15px);
+    opacity: 0;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.product-card:hover .quick-view-btn {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.product-rating {
+    font-size: 0.85rem;
+}
+
+
+/* =========================================
+   STORE HERO
+========================================= */
+
+.store-hero {
+    background:
+        linear-gradient(
+            135deg,
+            #f8f9fa 0%,
+            #eef1f5 100%
+        );
+}
+
+.min-vh-75 {
+    min-height: 75vh;
+}
+
+.hero-product-card {
+    width: 420px;
+    height: 420px;
+    margin: auto;
+    border-radius: 40px;
+    background: linear-gradient(
+        135deg,
+        #212529,
+        #495057
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.15);
+}
+
+.hero-product-card i {
+    font-size: 10rem;
+    color: white;
+}
+
+
+/* =========================================
+   CATEGORY CARDS
+========================================= */
+
+.category-card {
+    height: 220px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #e9ecef;
+}
+
+.category-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.category-card:hover img {
+    transform: scale(1.08);
+}
+
+.category-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #dee2e6;
+    font-size: 4rem;
+    color: #6c757d;
+}
+
+.category-overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 1.25rem;
+    color: white;
+    background: linear-gradient(
+        transparent,
+        rgba(0, 0, 0, 0.85)
+    );
+}
+
+.category-overlay h5 {
+    margin-bottom: 0.25rem;
+    font-weight: 700;
+}
+
+.category-overlay span {
+    font-size: 0.85rem;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-state-icon {
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    border-radius: 50%;
+    background: #f1f3f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #6c757d;
+}
+
+
+/* =========================================
+   PAGINATION
+========================================= */
+
+.pagination .page-link {
+    color: #212529;
+    border-radius: 8px;
+    margin: 0 3px;
+}
+
+.pagination .active .page-link {
+    background-color: #212529;
+    border-color: #212529;
+    color: white;
+}
+
+
+/* =========================================
+   RESPONSIVE HERO
+========================================= */
+
+@media (max-width: 767px) {
+
+    .store-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .min-vh-75 {
+        min-height: 65vh;
+    }
+
+}
+
+
+
+
+/* =========================================
+   CART
+========================================= */
+
+.cart-item {
+    transition: background-color 0.2s ease;
+}
+
+.cart-item:hover {
+    background-color: #f8f9fa;
+}
+
+.cart-product-image {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.cart-product-placeholder {
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+    background: #f1f3f5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #adb5bd;
+    font-size: 1.75rem;
+}
+
+.quantity-input {
+    max-width: 55px;
+}
+
+@media (max-width: 575px) {
+
+    .cart-product-image,
+    .cart-product-placeholder {
+        width: 70px;
+        height: 70px;
+    }
+
+}
+
+
+/* =========================================
+   PRODUCT CARD
+========================================= */
+
+.product-card {
+    overflow: hidden;
+    border-radius: 12px;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 1rem 2rem rgba(0, 0, 0, 0.12) !important;
+}
+
+
+/* =========================================
+   PRODUCT IMAGE
+========================================= */
+
+.product-image-wrapper {
+    height: 260px;
+    overflow: hidden;
+    position: relative;
+    background: #f5f5f5;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.08);
+}
+
+
+/* =========================================
+   PLACEHOLDER
+========================================= */
+
+.product-placeholder {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 3rem;
+    color: #adb5bd;
+}
+
+
+/* =========================================
+   SALE BADGE
+========================================= */
+
+.sale-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+
+    z-index: 5;
+
+    border-radius: 6px;
+}
+
+
+/* =========================================
+   DISCOUNT BADGE
+========================================= */
+
+.discount-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    z-index: 5;
+
+    border-radius: 6px;
+}
+
+
+/* =========================================
+   QUICK VIEW
+========================================= */
+
+.quick-view-btn {
+    position: absolute;
+
+    bottom: 15px;
+    left: 50%;
+
+    transform: translate(-50%, 15px);
+
+    opacity: 0;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+
+    white-space: nowrap;
+}
+
+.product-card:hover .quick-view-btn {
+    opacity: 1;
+
+    transform:
+        translate(-50%, 0);
+}
+
+
+/* =========================================
+   RATING
+========================================= */
+
+.product-rating {
+    font-size: 0.85rem;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 767px) {
+
+    .product-image-wrapper {
+        height: 220px;
+    }
+
+    .quick-view-btn {
+        opacity: 1;
+
+        transform:
+            translate(-50%, 0);
+    }
+
+}
+
+
+
+
+
+
+
+
