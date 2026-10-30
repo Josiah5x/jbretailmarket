@@ -1,5 +1,5 @@
 <div class="col">
-    <div class="card product-card h-100 border-0 shadow-sm">
+    <div class="card product-card h-100 shadow-sm">
 
         <!-- PRODUCT IMAGE -->
         <div class="product-image-wrapper position-relative">
@@ -18,27 +18,23 @@
 
             <!-- IMAGE -->
             {% if product.image %}
-
                 <img
                     src="{{ product.image.url }}"
                     class="card-img-top product-image"
                     alt="{{ product.name }}"
                     loading="lazy"
                 >
-
             {% else %}
-
                 <div class="product-placeholder">
                     <i class="bi bi-image"></i>
                 </div>
-
             {% endif %}
 
 
             <!-- QUICK VIEW -->
             <button
                 type="button"
-                class="btn btn-light quick-view-btn"
+                class="btn btn-theme-secondary quick-view-btn"
                 data-product-url="{% url 'catalog:product_quick_view' product.pk %}"
                 data-bs-toggle="modal"
                 data-bs-target="#quickViewModal"
@@ -61,56 +57,40 @@
 
             <!-- PRODUCT NAME -->
             <h5 class="card-title mt-1">
-
                 <a
                     href="{{ product.get_absolute_url }}"
-                    class="text-decoration-none text-dark"
+                    class="text-decoration-none product-title-link"
                 >
                     {{ product.name }}
                 </a>
-
             </h5>
 
 
             <!-- RATING -->
             <div class="product-rating mb-2">
-
                 {% for i in "12345" %}
-
                     {% if forloop.counter <= product.rating %}
-
                         <i class="bi bi-star-fill text-warning"></i>
-
                     {% else %}
-
                         <i class="bi bi-star text-warning"></i>
-
                     {% endif %}
-
                 {% endfor %}
-
                 <small class="text-muted ms-1">
                     ({{ product.review_count }})
                 </small>
-
             </div>
 
 
             <!-- PRICE -->
             <div class="product-price mb-3">
-
                 {% if product.is_on_sale %}
-
                     <span class="text-muted text-decoration-line-through me-2">
                         ₦{{ product.compare_at_price|floatformat:2 }}
                     </span>
-
                 {% endif %}
-
                 <span class="fw-bold fs-5">
                     ₦{{ product.price|floatformat:2 }}
                 </span>
-
             </div>
 
 
@@ -120,7 +100,7 @@
                 <!-- ADD TO CART -->
                 <button
                     type="button"
-                    class="btn btn-dark flex-grow-1 add-to-cart"
+                    class="btn btn-theme-primary flex-grow-1 add-to-cart"
                     data-product-id="{{ product.pk }}"
                     data-add-url="{% url 'cart:add_to_cart' product.pk %}"
                 >
@@ -132,7 +112,7 @@
                 <!-- VIEW DETAILS -->
                 <a
                     href="{{ product.get_absolute_url }}"
-                    class="btn btn-outline-dark"
+                    class="btn btn-outline-theme"
                     title="View product"
                 >
                     <i class="bi bi-arrow-right"></i>

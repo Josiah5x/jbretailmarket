@@ -4,17 +4,18 @@
 <html lang="en">
 
 <head>
-
+    
     <meta charset="UTF-8">
-
+    
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
+    content="width=device-width, initial-scale=1.0">
+    
     <title>
         {% block title %}
-            MiniStore
+        MiniStore
         {% endblock %}
     </title>
+    {% block extra_css %}
 
     <!-- Bootstrap 5 -->
     <link
@@ -34,7 +35,16 @@
         href="{% static 'css/style.css' %}"
     >
 
-    {% block extra_css %}
+    <script>
+    // Inline script in <head> executes instantly before the page paints
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+</script>
+
+
     {% endblock %}
 
 </head>
@@ -53,17 +63,61 @@
     {% include "includes/footer.html" %}
 
 
+    {% block extra_js %}
+
     <!-- Bootstrap JS -->
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
     </script>
 
     <!-- Site JS -->
-    <script
+    <script>
         src="{% static 'js/shop.js' %}">
     </script>
 
-    {% block extra_js %}
+    <script>
+(function() {
+    // Run safely even if DOMContentLoaded has already fired
+    const initTheme = () => {
+        const toggleBtn = document.getElementById('theme-toggle');
+        const toggleText = document.getElementById('theme-toggle-text');
+        
+        if (!toggleBtn || !toggleText) return; // Safeguard if elements aren't loaded yet
+
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        let currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                toggleText.textContent = 'Dark';
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                toggleText.textContent = 'Light';
+            }
+            localStorage.setItem('theme', theme);
+            currentTheme = theme;
+        };
+
+        // Apply immediately on load
+        applyTheme(currentTheme);
+
+        // Click handler
+        toggleBtn.onclick = () => {
+            applyTheme(currentTheme === 'light' ? 'dark' : 'light');
+        };
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initTheme);
+    } else {
+        initTheme();
+    }
+})();
+
+    </script>
+
     {% endblock %}
 
 </body>

@@ -1,19 +1,93 @@
+/* =========================================
+   THEME VARIABLES
+========================================= */
+:root {
+    /* Light Mode (Default) */
+    --bg-body: #ffffff;
+    --text-main: #212529;
+    --text-muted: #6c757d;
+    --text-placeholder: #adb5bd;
+    
+    --bg-card: #ffffff;
+    --bg-surface: #f8f9fa;
+    --bg-surface-nested: #f1f3f5;
+    --bg-image-wrapper: #f5f5f5;
+    --bg-placeholder-alt: #dee2e6;
+    --border-color: #dee2e6;
+    
+    --hero-gradient: linear-gradient(135deg, #f8f9fa 0%, #eef1f5 100%);
+    --hero-card-gradient: linear-gradient(135deg, #212529, #495057);
+    --hero-card-text: #ffffff;
+    --category-overlay: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+    --category-text: #ffffff;
+    
+    --shadow-hover: rgba(0, 0, 0, 0.12);
+    --shadow-hero: rgba(0, 0, 0, 0.15);
+}
+
+/* Dark Mode (System preference OR data attribute override) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-body: #121212;
+        --text-main: #f8f9fa;
+        --text-muted: #a0aec0;
+        --text-placeholder: #4a5568;
+        
+        --bg-card: #1e1e1e;
+        --bg-surface: #2d3748;
+        --bg-surface-nested: #1a202c;
+        --bg-image-wrapper: #252525;
+        --bg-placeholder-alt: #2d3748;
+        --border-color: #2d3748;
+        
+        --hero-gradient: linear-gradient(135deg, #1a202c 0%, #121212 100%);
+        --hero-card-gradient: linear-gradient(135deg, #2d3748, #1a202c);
+        --hero-card-text: #f8f9fa;
+        --category-overlay: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
+        --category-text: #f8f9fa;
+        
+        --shadow-hover: rgba(0, 0, 0, 0.5);
+        --shadow-hero: rgba(0, 0, 0, 0.6);
+    }
+}
+
+/* Explicit selector if you want a JS manual toggle button later */
+[data-theme="dark"] {
+    --bg-body: #121212;
+    --text-main: #f8f9fa;
+    --text-muted: #a0aec0;
+    --text-placeholder: #4a5568;
+    
+    --bg-card: #1e1e1e;
+    --bg-surface: #2d3748;
+    --bg-surface-nested: #1a202c;
+    --bg-image-wrapper: #252525;
+    --bg-placeholder-alt: #2d3748;
+    --border-color: #2d3748;
+    
+    --hero-gradient: linear-gradient(135deg, #1a202c 0%, #121212 100%);
+    --hero-card-gradient: linear-gradient(135deg, #2d3748, #1a202c);
+    --hero-card-text: #f8f9fa;
+    --category-overlay: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
+    --category-text: #f8f9fa;
+    
+    --shadow-hover: rgba(0, 0, 0, 0.5);
+    --shadow-hero: rgba(0, 0, 0, 0.6);
+}
+
+/* =========================================
+   GLOBAL STYLES
+========================================= */
 body {
     min-height: 100vh;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .navbar-brand {
     letter-spacing: -0.5px;
-}
-
-.product-card {
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
+    color: var(--text-main);
 }
 
 .btn {
@@ -23,28 +97,40 @@ body {
 .form-control,
 .form-select {
     border-radius: 8px;
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    border-color: var(--border-color);
 }
 
-/* ############# CATALOG */
+.form-control::placeholder {
+    color: var(--text-placeholder);
+}
 
+/* =========================================
+   CATALOG & PRODUCT CARDS
+========================================= */
 .product-card {
     overflow: hidden;
     border-radius: 12px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
     transition:
         transform 0.25s ease,
-        box-shadow 0.25s ease;
+        box-shadow 0.25s ease,
+        background-color 0.3s ease,
+        border-color 0.3s ease;
 }
 
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.12) !important;
+    box-shadow: 0 1rem 2rem var(--shadow-hover) !important;
 }
 
 .product-image-wrapper {
     height: 260px;
     overflow: hidden;
     position: relative;
-    background: #f5f5f5;
+    background: var(--bg-image-wrapper);
 }
 
 .product-image {
@@ -65,7 +151,7 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 3rem;
-    color: #adb5bd;
+    color: var(--text-placeholder);
 }
 
 .sale-badge {
@@ -76,13 +162,21 @@ body {
     border-radius: 6px;
 }
 
+.discount-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+    border-radius: 6px;
+}
+
 .quick-view-btn {
     position: absolute;
     bottom: 15px;
     left: 50%;
     transform: translate(-50%, 15px);
     opacity: 0;
-    transition: all 0.25s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease;
     white-space: nowrap;
 }
 
@@ -93,20 +187,14 @@ body {
 
 .product-rating {
     font-size: 0.85rem;
+    color: var(--text-muted);
 }
-
 
 /* =========================================
    STORE HERO
 ========================================= */
-
 .store-hero {
-    background:
-        linear-gradient(
-            135deg,
-            #f8f9fa 0%,
-            #eef1f5 100%
-        );
+    background: var(--hero-gradient);
 }
 
 .min-vh-75 {
@@ -118,33 +206,27 @@ body {
     height: 420px;
     margin: auto;
     border-radius: 40px;
-    background: linear-gradient(
-        135deg,
-        #212529,
-        #495057
-    );
+    background: var(--hero-card-gradient);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2rem 4rem var(--shadow-hero);
 }
 
 .hero-product-card i {
     font-size: 10rem;
-    color: white;
+    color: var(--hero-card-text);
 }
-
 
 /* =========================================
    CATEGORY CARDS
 ========================================= */
-
 .category-card {
     height: 220px;
     position: relative;
     overflow: hidden;
     border-radius: 16px;
-    background: #e9ecef;
+    background: var(--bg-placeholder-alt);
 }
 
 .category-card img {
@@ -164,20 +246,17 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #dee2e6;
+    background: var(--bg-placeholder-alt);
     font-size: 4rem;
-    color: #6c757d;
+    color: var(--text-muted);
 }
 
 .category-overlay {
     position: absolute;
     inset: auto 0 0 0;
     padding: 1.25rem;
-    color: white;
-    background: linear-gradient(
-        transparent,
-        rgba(0, 0, 0, 0.85)
-    );
+    color: var(--category-text);
+    background: var(--category-overlay);
 }
 
 .category-overlay h5 {
@@ -189,71 +268,49 @@ body {
     font-size: 0.85rem;
 }
 
-
 /* =========================================
    EMPTY STATE
 ========================================= */
-
 .empty-state-icon {
     width: 80px;
     height: 80px;
     margin: auto;
     border-radius: 50%;
-    background: #f1f3f5;
+    background: var(--bg-surface-nested);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
-    color: #6c757d;
+    color: var(--text-muted);
 }
-
 
 /* =========================================
    PAGINATION
 ========================================= */
-
 .pagination .page-link {
-    color: #212529;
+    color: var(--text-main);
+    background-color: var(--bg-card);
+    border-color: var(--border-color);
     border-radius: 8px;
     margin: 0 3px;
 }
 
 .pagination .active .page-link {
-    background-color: #212529;
-    border-color: #212529;
-    color: white;
+    background-color: var(--text-main);
+    border-color: var(--text-main);
+    color: var(--bg-body);
 }
-
-
-/* =========================================
-   RESPONSIVE HERO
-========================================= */
-
-@media (max-width: 767px) {
-
-    .store-hero h1 {
-        font-size: 2.5rem;
-    }
-
-    .min-vh-75 {
-        min-height: 65vh;
-    }
-
-}
-
-
-
 
 /* =========================================
    CART
 ========================================= */
-
 .cart-item {
+    border-bottom: 1px solid var(--border-color);
     transition: background-color 0.2s ease;
 }
 
 .cart-item:hover {
-    background-color: #f8f9fa;
+    background-color: var(--bg-surface);
 }
 
 .cart-product-image {
@@ -267,13 +324,11 @@ body {
     width: 90px;
     height: 90px;
     border-radius: 10px;
-    background: #f1f3f5;
-
+    background: var(--bg-surface-nested);
     display: flex;
     align-items: center;
     justify-content: center;
-
-    color: #adb5bd;
+    color: var(--text-placeholder);
     font-size: 1.75rem;
 }
 
@@ -281,149 +336,17 @@ body {
     max-width: 55px;
 }
 
-@media (max-width: 575px) {
-
-    .cart-product-image,
-    .cart-product-placeholder {
-        width: 70px;
-        height: 70px;
+/* =========================================
+   RESPONSIVE / MEDIA QUERIES
+========================================= */
+@media (max-width: 767px) {
+    .store-hero h1 {
+        font-size: 2.5rem;
     }
 
-}
-
-
-/* =========================================
-   PRODUCT CARD
-========================================= */
-
-.product-card {
-    overflow: hidden;
-    border-radius: 12px;
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow:
-        0 1rem 2rem rgba(0, 0, 0, 0.12) !important;
-}
-
-
-/* =========================================
-   PRODUCT IMAGE
-========================================= */
-
-.product-image-wrapper {
-    height: 260px;
-    overflow: hidden;
-    position: relative;
-    background: #f5f5f5;
-}
-
-.product-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.45s ease;
-}
-
-.product-card:hover .product-image {
-    transform: scale(1.08);
-}
-
-
-/* =========================================
-   PLACEHOLDER
-========================================= */
-
-.product-placeholder {
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 3rem;
-    color: #adb5bd;
-}
-
-
-/* =========================================
-   SALE BADGE
-========================================= */
-
-.sale-badge {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-
-    z-index: 5;
-
-    border-radius: 6px;
-}
-
-
-/* =========================================
-   DISCOUNT BADGE
-========================================= */
-
-.discount-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-
-    z-index: 5;
-
-    border-radius: 6px;
-}
-
-
-/* =========================================
-   QUICK VIEW
-========================================= */
-
-.quick-view-btn {
-    position: absolute;
-
-    bottom: 15px;
-    left: 50%;
-
-    transform: translate(-50%, 15px);
-
-    opacity: 0;
-
-    transition:
-        opacity 0.25s ease,
-        transform 0.25s ease;
-
-    white-space: nowrap;
-}
-
-.product-card:hover .quick-view-btn {
-    opacity: 1;
-
-    transform:
-        translate(-50%, 0);
-}
-
-
-/* =========================================
-   RATING
-========================================= */
-
-.product-rating {
-    font-size: 0.85rem;
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 767px) {
+    .min-vh-75 {
+        min-height: 65vh;
+    }
 
     .product-image-wrapper {
         height: 220px;
@@ -431,17 +354,75 @@ body {
 
     .quick-view-btn {
         opacity: 1;
-
-        transform:
-            translate(-50%, 0);
+        transform: translate(-50%, 0);
     }
+}
 
+@media (max-width: 575px) {
+    .cart-product-image,
+    .cart-product-placeholder {
+        width: 70px;
+        height: 70px;
+    }
 }
 
 
+/* Navbar & Interactive Buttons Integration */
+.main-navbar {
+    background-color: var(--bg-card);
+    border-color: var(--border-color) !important;
+}
+
+.main-navbar .nav-link {
+    color: var(--text-muted);
+}
+
+.main-navbar .nav-link:hover,
+.main-navbar .nav-link.active {
+    color: var(--text-main);
+}
+
+/* Adaptive Button Themes */
+.btn-theme-primary {
+    background-color: var(--text-main);
+    color: var(--bg-body);
+    border: 1px solid var(--text-main);
+}
+.btn-theme-primary:hover {
+    opacity: 0.9;
+    color: var(--bg-body);
+}
+
+.btn-theme-secondary {
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+.btn-theme-secondary:hover {
+    background-color: var(--bg-surface-nested);
+    color: var(--text-main);
+}
+
+.btn-outline-theme {
+    background-color: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--text-main);
+}
+.btn-outline-theme:hover {
+    background-color: var(--text-main);
+    color: var(--bg-body);
+}
 
 
+/* =========================================
+   PRODUCT TITLE THEME INTEGRATION
+========================================= */
+.product-title-link {
+    color: var(--text-main);
+    transition: color 0.25s ease;
+}
 
-
-
+.product-title-link:hover {
+    color: var(--text-muted);
+}
 
